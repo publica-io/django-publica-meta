@@ -1,0 +1,7 @@
+{% for tag in metatags %}
+  <meta name="{{ tag.name }}" content="{{ tag.value }}" />
+{% endfor %}
+
+{% for tag in ogtags %}
+  <meta property="og:{{ tag.name }}" content="{{ tag.value }}" />
+{% endfor %}
