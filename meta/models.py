@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
 from django.forms.models import model_to_dict
@@ -60,7 +59,7 @@ class BaseMetatag(models.Model):
 
 class MetatagModelInstance(BaseMetatag):
     content_type = models.ForeignKey(
-        ContentType,
+        'contenttypes.ContentType',
         limit_choices_to={'model__in': CONTENT_MODELS}
     )
     object_id = models.PositiveIntegerField()
@@ -80,3 +79,12 @@ class MetatagPath(BaseMetatag):
     class Meta:
         ordering = ('path', )
         verbose_name = 'Metadata for Path'
+
+    def save(self, *args, **kwargs):
+        if not self.path.startswith('/'):
+            self.path = '/{}'.format(self.path)
+
+        if not self.path.endswith('/'):
+            self.path += '/'
+
+        super(MetatagPath, self).save(*args, **kwargs)
