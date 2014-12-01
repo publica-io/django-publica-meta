@@ -69,16 +69,22 @@ class MetatagModelInstance(BaseMetatag):
         unique_together = ('content_type', 'object_id')
         verbose_name = 'Metadata for Model'
 
+    def __unicode__(self):
+        return u'{} :: {}'.format(
+            self.content_object.__class__.__name__,
+            self.content_object.__unicode__()
+        )
+
 
 class MetatagPath(BaseMetatag):
     path = models.CharField(db_index=True, max_length=255)
 
-    def __unicode__(self):
-        return self.path
-
     class Meta:
         ordering = ('path', )
         verbose_name = 'Metadata for Path'
+
+    def __unicode__(self):
+        return self.path
 
     def save(self, *args, **kwargs):
         if not self.path.startswith('/'):
