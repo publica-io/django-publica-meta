@@ -13,15 +13,9 @@ class BaseMetatag(models.Model):
     '''
     This class represent the whole meta tags class.
 
-    url is og:url
-    title is og:title
-    image is og:image
-    object_type is og:type
-    site_name is og:site_name
-
     '''
 
-    # Meta properties values
+    # Metatag properties values
     author = models.CharField(max_length=155, blank=True)
     description = models.CharField(max_length=155, blank=True)
     keywords = models.CharField(
@@ -30,12 +24,35 @@ class BaseMetatag(models.Model):
         help_text='A list of comma separated keywords'
     )
 
-    # OG properties values
-    url = models.CharField(max_length=50, blank=True)
-    title = models.CharField(max_length=50, blank=True)
-    image = models.CharField(max_length=50, blank=True)
-    type = models.CharField(max_length=50, blank=True)
-    site_name = models.CharField(max_length=50, blank=True)
+    '''
+    OG properties values
+
+    url is og:url
+    title is og:title
+    image is og:image
+    object_type is og:type
+    site_name is og:site_name
+
+    '''
+
+    url = models.CharField(max_length=50, blank=True, help_text=(
+        'The title of your object as it should appear within the graph, e.g., '
+        '"The Rock".'
+    ))
+    title = models.CharField(max_length=50, blank=True, help_text=(
+        'The type of your object, e.g., "video.movie".'
+    ))
+    image = models.CharField(max_length=50, blank=True, help_text=(
+        'An image URL which should represent your object within the graph.'
+    ))
+    type = models.CharField(max_length=50, blank=True, help_text=(
+        'The canonical URL of your object that will be used as its permanent '
+        'ID in the graph, e.g., "http://www.imdb.com/title/tt0117500/".'
+    ))
+    site_name = models.CharField(max_length=50, blank=True, help_text=(
+        'If your object is part of a larger web site, the name which should '
+        'be displayed for the overall site. e.g., "IMDb".'
+    ))
 
     class Meta:
         abstract = True
