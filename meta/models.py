@@ -84,7 +84,7 @@ class MetatagModelInstance(BaseMetatag):
 
     class Meta:
         unique_together = ('content_type', 'object_id')
-        verbose_name = 'Metadata for Model'
+        verbose_name = 'Metadata Description'
 
     def __unicode__(self):
         return u'{} :: {}'.format(
